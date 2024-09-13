@@ -18,14 +18,9 @@ class Init {
         this.nameNext = 'apple';
         this.lastFruit = null;
         this.isPause = false;
-        this.background = new Image();
-        this.background.src = './Images/background.jpg';
-        this.isLoadBackground = false;
+        this.background = this.images['Background']
         this.countLock = 0;
         this.nameLevel = ['Fruits', 'Cute'];
-        this.background.onload = () => {
-            this.isLoadbackground = true;
-        }
     }
     run(timestamp, level) {
         this.lastUpdateTime = timestamp;
@@ -149,9 +144,7 @@ class Init {
         }
     }
     render() {
-        if (this.isLoadbackground) {
-            this.context.drawImage(this.background, 0, 0, 400, 700);
-        }
+        this.context.drawImage(this.background, 0, 0, 400, 700);
         new Text(20, 30, "Scores: " + (this.getScores() * (this.level + 1)))
             .render(this.context, '20px Mono');
         this.updateTop();

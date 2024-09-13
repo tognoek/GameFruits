@@ -1,25 +1,20 @@
 import Button from "./button.js";
 import Text from "./text.js";
 class Level {
-    constructor() {
+    constructor(images) {
+        this.images = images;
         this.buttons = [];
         this.texts = [];
         this.isLoadLogo = false;
     }
     init() {
-        this.image = new Image();
-        this.image.src = './Images/logo.svg';
-        this.image.onload = () => {
-            this.isLoadLogo = true;
-        }
+        this.image = this.images['Logo'];
         this.texts.push(new Text(200, 300, 'Purus Game'));
         this.buttons.push(new Button(30, 350, "Level I", 0));
         this.buttons.push(new Button(30, 450, "Level II", 1));
     }
     render(context) {
-        if (this.isLoadLogo){
-            context.drawImage(this.image, 100, 50);
-        }
+        context.drawImage(this.image, 100, 50);
         this.buttons.forEach(e => e.render(context, 1));
         this.texts.forEach(e =>
             e.render(context, '50px Arial', 'center')

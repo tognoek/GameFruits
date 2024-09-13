@@ -5,7 +5,9 @@ import Images from './script/image.js';
 const canvas = document.getElementById('canvas');
 const images = [{ name: 'Fruits', src: './Images/Fruits.png' },
                 { name: 'Chirstmas', src: './Images/Chirstmas.png' },
-                { name: 'Cute', src: './Images/Cute.png' }]
+                { name: 'Cute', src: './Images/Cute.png' },
+                { name: 'Background', src: './Images/background.jpg' },
+                { name: 'Logo', src: './Images/logo.svg'}]
 
 const imageItem = new Images(images);
 

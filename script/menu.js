@@ -2,6 +2,7 @@ import Button from "./button.js";
 import Text from "./text.js";
 class Menu {
     constructor(images) {
+        this.images = images;
         this.buttons = [];
         this.texts = [];
         this.isLoadLogo = false;
@@ -11,19 +12,13 @@ class Menu {
         this.level = level;
     }
     init() {
-        this.image = new Image();
-        this.image.src = './Images/logo.svg';
-        this.image.onload = () => {
-            this.isLoadLogo = true;
-        }
+        this.image = this.images['Logo']
         this.texts.push(new Text(200, 300, 'Togn Oek'));
         this.buttons.push(new Button(30, 350, "Start", 0));
         this.buttons.push(new Button(30, 450, "Start", 1));
     }
     render(context) {
-        if (this.isLoadLogo){
-            context.drawImage(this.image, 100, 50);
-        }
+        context.drawImage(this.image, 100, 50);
         this.buttons.forEach(e => {
             if (e.id == 1){
                 e.setText(this.nameLevel[this.level]);

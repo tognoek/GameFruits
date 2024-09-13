@@ -12,9 +12,9 @@ class Game {
         this.images = images;
         this.data = data;
         this.init = new Init(this.context, this.images, this.data);
-        this.menu = new Menu(this.context, this.images);
+        this.menu = new Menu(this.images);
         this.menu.init();
-        this.level = new Level(this.context, this.images);
+        this.level = new Level(this.images);
         this.level.init();
         this.pause = new Pause();
         this.pause.init();
