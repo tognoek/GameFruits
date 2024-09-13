@@ -23,7 +23,7 @@ class Game {
         this.canvasClass = new Canvas(this.context,
                                 this.init, this.menu, this.pause,
                                 this.level, this.over);
-        this.action = 'init';
+        this.action = 'menu';
         this.maxLock = 200;
         this.levelNumber = parseInt(localStorage.getItem('level') ?? 0);
     }
