@@ -1,21 +1,21 @@
-import Text from "./text.js";
 
 class Canvas {
-    constructor(context, init, menu) {
+    constructor(context, init, menu, pause, level, over) {
         this.context = context;
         this.text = [];
         this.init = init;
         this.menu = menu;
+        this.pause = pause;
+        this.level = level;
+        this.over = over;
     }
-
-    gamePlay() {
+    gamePause(){
         this.init.render();
-        let text = new Text(20, 20, "Scores: " + this.init.getScores());
-        text.render(this.context);
+        this.pause.render(this.context);
     }
-
-    gameMenu() {
-        this.menu.render(this.context);
+    gameOver(){
+        this.init.render();
+        this.over.render(this.context);
     }
 
     render(action) {
@@ -23,11 +23,20 @@ class Canvas {
         switch (action) {
             case 'init':
                 if (this.init.getIsActivate()) {
-                    this.gamePlay();
+                    this.init.render();
                 }
                 break;
             case 'menu':
-                this.gameMenu();
+                this.menu.render(this.context);
+                break;
+            case 'pause':
+                this.gamePause();
+                break;
+            case 'level':
+                this.level.render(this.context);
+                break;
+            case 'over':
+                this.gameOver();
                 break;
             default:
                 break;

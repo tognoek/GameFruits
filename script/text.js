@@ -4,13 +4,15 @@ class Text{
         this.y = y;
         this.text = text;
     }
+    settext(text){
+        this.text = text;
+    }
     getSize(context, font = null){
-        context.fillStyle = 'black';
         context.font =  font ||'20px Arial';
         return context.measureText(this.text);
     }
-    render(context, font = null, align = null){
-        context.fillStyle = 'black';
+    render(context, font = null, align = null, color = null){
+        context.fillStyle = color || 'black';
         context.font = font || '20px Arial';
         context.textAlign = 'start';
         if (align){

@@ -13,5 +13,6 @@ body{
     left: 50%;
     border: 2px solid black;
     transform: translate(-50%);
+    border-radius: 20px;
     /* transform: translateY(-50%); */
 }

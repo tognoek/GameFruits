@@ -1,14 +1,10 @@
 import Button from "./button.js";
 import Text from "./text.js";
-class Menu {
-    constructor(images) {
+class Level {
+    constructor() {
         this.buttons = [];
         this.texts = [];
         this.isLoadLogo = false;
-        this.nameLevel = ["Level I", "Level II"];
-    }
-    setLevel(level) {
-        this.level = level;
     }
     init() {
         this.image = new Image();
@@ -16,24 +12,18 @@ class Menu {
         this.image.onload = () => {
             this.isLoadLogo = true;
         }
-        this.texts.push(new Text(200, 300, 'Togn Oek'));
-        this.buttons.push(new Button(30, 350, "Start", 0));
-        this.buttons.push(new Button(30, 450, "Start", 1));
+        this.texts.push(new Text(200, 300, 'Purus Game'));
+        this.buttons.push(new Button(30, 350, "Level I", 0));
+        this.buttons.push(new Button(30, 450, "Level II", 1));
     }
     render(context) {
         if (this.isLoadLogo){
             context.drawImage(this.image, 100, 50);
         }
-        this.buttons.forEach(e => {
-            if (e.id == 1){
-                e.setText(this.nameLevel[this.level]);
-            }
-            e.render(context, 1)
-        });
+        this.buttons.forEach(e => e.render(context, 1));
         this.texts.forEach(e =>
             e.render(context, '50px Arial', 'center')
         );
-        new Text(200, 600, 'Top: ' + (localStorage.getItem('top') ?? 0)).render(context, '40px Arial', 'center');
     }
     event(e) {
         let x = e.offsetX;
@@ -49,4 +39,4 @@ class Menu {
 
 }
 
-export default Menu;
+export default Level;

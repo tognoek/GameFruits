@@ -1,98 +1,14 @@
 {
-    "apple" : {
-        "x" : 0,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "banana"
+    "Fruits": {
+        "row": 2,
+        "col": 6,
+        "w": 32,
+        "h": 32
     },
-    "banana" : {
-        "x" : 32,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "cherry"
-    },
-    "cherry" : {
-        "x" : 64,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "grape"
-    },
-    "grape" : {
-        "x" : 96,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "melon"
-    },
-    "melon" : {
-        "x" : 128,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "cherry"
-    },
-    "lemon" :{
-        "x" : 160,
-        "y" : 0,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "orange"
-    },
-    "orange" : {
-        "x" : 0,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "peach"
-    },
-    "peach" : {
-        "x" : 32,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "pear"
-    },
-    "pear" : {
-        "x" : 64,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "pineapple"
-    },
-    "pineapple" : {
-        "x" : 96,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "strawberry"
-    },
-    "strawberry" : {
-        "x" : 128,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : "watermelon"
-    },
-    "watermelon" : {
-        "x" : 160,
-        "y" : 32,
-        "radiusImage" : 16,
-        "mass" : 1,
-        "restitution" : 0.5,
-        "next" : null
+    "Cute": {
+        "row" : 9,
+        "col" : 12,
+        "w": 24,
+        "h": 24
     }
 }

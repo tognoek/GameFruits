@@ -1,11 +1,12 @@
-class Fruit{
+class Fruit {
     // Is cricle
-    constructor(images, name, sx, sy, rImage, rCanvas, mass, restitution, nameNext, score){
+    constructor(images, name, sx, sy, w, h, rCanvas, mass, restitution, nameNext, score) {
         this.images = images
         this.name = name;
         this.sx = sx;
         this.sy = sy;
-        this.rImage = rImage;
+        this.w = w;
+        this.h = h;
         this.rCanvas = rCanvas;
         this.vx = 0;
         this.vy = 30;
@@ -19,29 +20,29 @@ class Fruit{
         this.nameNext = nameNext;
         this.score = score;
     }
-    activate(x, y){
+    activate(x, y) {
         this.x = x;
         this.y = y;
     }
-    checkOutLine(y = 150){
-        if (!this.isActivate()){
+    checkOutLine(y = 150) {
+        if (!this.isActivate()) {
             return true;
         }
-        if (this.y - this.radius > y){
+        if (this.y - this.radius > y) {
             return true;
         }
         return false;
     }
-    isActivate(){
+    isActivate() {
         if (!this.x || !this.y) {
             return false;
         }
-        if (!this.isAction){
+        if (!this.isAction) {
             return false;
         }
         return true;
     }
-    update(deltaTime, max = {x : 400, y : 700}){
+    update(deltaTime, max = { x: 400, y: 700 }) {
         if (!this.isActivate()) {
             return;
         }
@@ -49,43 +50,45 @@ class Fruit{
         this.vy += deltaTime * this.g;
         // update coordinates of a fruit
         this.x += this.vx * deltaTime;
-        if (Math.abs(this.vy * deltaTime) > 0.1){
+        if (Math.abs(this.vy * deltaTime) > 0.1) {
             this.y += this.vy * deltaTime;
         }
-        if (this.y + this.radius > max.y){
+        if (this.y + this.radius > max.y) {
             this.vy = this.vy * -1 * this.restitution;
             this.y = max.y - this.radius;
         }
-        if (this.x - this.radius < 0){
+        if (this.x - this.radius < 0) {
             this.vx = this.vx * -1;
             this.x = this.radius;
         }
-        if (this.x + this.radius > max.x){
+        if (this.x + this.radius > max.x) {
             this.vx = this.vx * -1;
             this.x = max.x - this.radius;
         }
     }
-    moving(speed, object, implues, dis){
-        if (speed < 0){
+    moving(speed, object, implues, dis) {
+        if (speed < 0) {
             return;
         }
         let mass = object.mass;
-        this.vx += dis  * (implues * mass * this.vCollisionNorm.x);
-        this.vy += dis  * (implues * mass * this.vCollisionNorm.y);
+        this.vx += dis * (implues * mass * this.vCollisionNorm.x);
+        this.vy += dis * (implues * mass * this.vCollisionNorm.y);
+        this.vx *= this.restitution;
+        this.vy *= this.restitution;
     }
-    die(){
+    die() {
         this.isAction = false;
     }
-    collision(object){
+    collision(object) {
         if (!this.isActivate()) {
             return;
         }
         let delatX = object.x - this.x;
         let delatY = object.y - this.y;
         let distance = Math.sqrt(delatX * delatX + delatY * delatY);
-        if (distance < this.radius + object.radius){
-            this.vCollisionNorm = {x : delatX / distance, y : delatY / distance};
-            object.vCollisionNorm = {x : delatX / distance, y : delatY / distance};
+        if (distance < this.radius + object.radius) {
+            this.vCollisionNorm = { x: delatX / distance, y: delatY / distance };
+            object.vCollisionNorm = { x: delatX / distance, y: delatY / distance };
             let vRelativeVelocity = {
                 x: this.vx - object.vx,
                 y: this.vy - object.vy
@@ -98,32 +101,32 @@ class Fruit{
         }
         return false;
     }
-    render(context){
+    render(context) {
         if (!this.isActivate()) {
             return;
         }
-        context.imageSmoothingEnabled = true;
-        context.imageSmoothingQuality = 'high';
+        // context.imageSmoothingEnabled = true;
+        // context.imageSmoothingQuality = 'low';
         context.drawImage(this.images, this.sx, this.sy,
-                         this.rImage * 2, this.rImage * 2,
-                         this.x - this.rCanvas, this.y - this.rCanvas,
-                         this.rCanvas * 2, this.rCanvas * 2);
+            this.w * 2, this.h * 2,
+            this.x - this.rCanvas, this.y - this.rCanvas,
+            this.rCanvas * 2, this.rCanvas * 2);
         // context.beginPath();
         // context.arc(this.x , this.y , this.radius, 0, 2 * Math.PI);
         // context.stroke();
         // context.closePath();
     }
-    copy(){
-        return new Fruit(this.images, this.name, 
-                        this.sx, this.sy, this.rImage, 
-                        this.rCanvas, this.mass, this.restitution,
-                        this.nameNext, this.score);
+    copy() {
+        return new Fruit(this.images, this.name,
+            this.sx, this.sy, this.w, this.h,
+            this.rCanvas, this.mass, this.restitution,
+            this.nameNext, this.score);
     }
-    copyDefault(){
-        return new Fruit(this.images, this.name, 
-                        this.sx, this.sy, this.rImage, 
-                        this.rImage, this.mass, this.restitution,
-                        this.nameNext, this.score);
+    copyDefault() {
+        return new Fruit(this.images, this.name,
+            this.sx, this.sy, this.w, this.h,
+            16, this.mass, this.restitution,
+            this.nameNext, this.score);
     }
 }
 
