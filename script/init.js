@@ -19,7 +19,7 @@ class Init {
         this.lastFruit = null;
         this.isPause = false;
         this.background = new Image();
-        this.background.src = './../Images/background.jpg';
+        this.background.src = './Images/background.jpg';
         this.isLoadBackground = false;
         this.countLock = 0;
         this.nameLevel = ['Fruits', 'Cute'];

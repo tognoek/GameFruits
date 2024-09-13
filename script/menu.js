@@ -12,7 +12,7 @@ class Menu {
     }
     init() {
         this.image = new Image();
-        this.image.src = './../Images/logo.svg';
+        this.image.src = './Images/logo.svg';
         this.image.onload = () => {
             this.isLoadLogo = true;
         }
