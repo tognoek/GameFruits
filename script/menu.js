@@ -13,7 +13,7 @@ class Menu {
     }
     init() {
         this.image = this.images['Logo']
-        this.texts.push(new Text(200, 300, 'Togn Oek'));
+        this.texts.push(new Text(200, 280, 'Togn Oek'));
         this.buttons.push(new Button(30, 350, "Start", 0));
         this.buttons.push(new Button(30, 450, "Start", 1));
     }
@@ -23,12 +23,12 @@ class Menu {
             if (e.id == 1){
                 e.setText(this.nameLevel[this.level]);
             }
-            e.render(context, 1)
+            e.render(context, 1, this.images)
         });
         this.texts.forEach(e =>
-            e.render(context, '50px Arial', 'center')
+            e.render(context, '50px Arial', 'center', null, this.images['TextB'])
         );
-        new Text(200, 600, 'Top: ' + (localStorage.getItem('top') ?? 0)).render(context, '40px Arial', 'center');
+        new Text(200, 600, 'Top: ' + (localStorage.getItem('top') ?? 0)).render(context, '40px Arial', 'center', null, this.images['TextB']);
     }
     event(e) {
         let x = e.offsetX;

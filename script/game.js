@@ -16,14 +16,14 @@ class Game {
         this.menu.init();
         this.level = new Level(this.images);
         this.level.init();
-        this.pause = new Pause();
+        this.pause = new Pause(this.images);
         this.pause.init();
-        this.over = new Over();
+        this.over = new Over(this.images);
         this.over.init();
         this.canvasClass = new Canvas(this.context,
                                 this.init, this.menu, this.pause,
                                 this.level, this.over);
-        this.action = 'menu';
+        this.action = 'init';
         this.maxLock = 200;
         this.levelNumber = parseInt(localStorage.getItem('level') ?? 0);
     }
@@ -32,7 +32,10 @@ class Game {
             switch (this.action) {
                 case 'init':
                     if (this.init.getIsActivate()) {
-                        this.init.createItem(e.offsetX, e.offsetY);
+                        if(this.init.createItem(e.offsetX, e.offsetY)){
+                            this.init.handlePause();
+                            this.action = 'pause';
+                        }
                     }
                     break;
                 case 'menu':

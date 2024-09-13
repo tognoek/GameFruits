@@ -1,7 +1,8 @@
 import Button from "./button.js";
 import Text from "./text.js";
 class Over{
-    constructor(){
+    constructor(images){
+        this.images = images;
         this.buttons = [];
         this.texts = [];
     }
@@ -13,9 +14,9 @@ class Over{
     render(context){
         context.fillStyle = 'rgba(128, 128, 128, 0.5)';
         context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-        this.buttons.forEach(e => e.render(context, 1));
+        this.buttons.forEach(e => e.render(context, 1, this.images));
         this.texts.forEach(e => 
-            e.render(context, '50px Arial', 'center', '#3C3D37')
+            e.render(context, '50px Arial', 'center', '#3C3D37', this.images['TextB'])
         );
     }
     event(e){

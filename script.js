@@ -7,20 +7,23 @@ const images = [{ name: 'Fruits', src: './Images/Fruits.png' },
                 { name: 'Chirstmas', src: './Images/Chirstmas.png' },
                 { name: 'Cute', src: './Images/Cute.png' },
                 { name: 'Background', src: './Images/background.jpg' },
-                { name: 'Logo', src: './Images/logo.svg'}]
+                { name: 'Logo', src: './Images/logo.svg' },
+                { name: 'TextB', src: './Images/text_black.png' },
+                { name: 'TextW', src: './Images/text_white.png' },
+                {name: 'setting', src: './Images/setting.png'}]
 
 const imageItem = new Images(images);
 
-const callback = () => {
-    fetch('./data/fruits.json')
-        .then((response) => response.json())
-        .then(datas => {
-            const game = new Game(canvas, imageItem.getImages(), datas);
-            game.onClick();
-            requestAnimationFrame(game.loop.bind(game));
-            window.addEventListener('keydown', (e) => {
-                game.eventKey(e);
-            });
-        })
+    const callback = () => {
+        fetch('./data/fruits.json')
+            .then((response) => response.json())
+            .then(datas => {
+                const game = new Game(canvas, imageItem.getImages(), datas);
+                game.onClick();
+                requestAnimationFrame(game.loop.bind(game));
+                window.addEventListener('keydown', (e) => {
+                    game.eventKey(e);
+                });
+            })
     }
 imageItem.handleLoad(callback);

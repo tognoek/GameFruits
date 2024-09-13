@@ -13,22 +13,26 @@ class Button{
     setText(text){
         this.text.settext(text);
     }
-    render(context, is = 0){
+    render(context, is = 0, images = null){
         this.sizeText = this.text.getSize(context, this.font);
         context.strokeStyle = 'black';
         if (is == 1){
-            this.x = (context.canvas.width - 200) / 2 - 20;
+            this.x = (context.canvas.width - 250) / 2 - 20;
         }
-        this.text.x = this.x + this.px + 100;
+        this.text.x = this.x + this.px + 125;
+        if (images != null){
+            this.text.x = this.x + this.px + 125;
+            this.text.y = this.y + 12;
+        }
         this.drawRoundedRect(context,
                             this.x, this.y,
-                            200 + this.px * 2, this.sizeFont + this.py * 2,
+                            250 + this.px * 2, this.sizeFont + this.py * 2,
                             10);
-        this.text.render(context, this.font, 'center', 'white');
+        this.text.render(context, this.font, 'center', 'white', images?.['TextW'] ?? null);
     }
     onClick(x = null, y = null){
         if (x !== null && x !== null){
-            if (x >= this.x && x <= this.x + 200 + this.px * 2 &&
+            if (x >= this.x && x <= this.x + 250 + this.px * 2 &&
                 y >= this.y && y <= this.y + this.sizeFont  + this.py * 2){
                 return true;
             }

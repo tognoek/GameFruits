@@ -1,5 +1,6 @@
 import Fruit from './fruit.js';
 import Text from "./text.js";
+import Button from './button.js';
 
 class Init {
     constructor(context = null, images = null, data = null) {
@@ -81,13 +82,13 @@ class Init {
             for (let indexCol = 0; indexCol < col; indexCol++) {
                 let x = indexCol * h;
                 let y = indexRow * w;
-                if (radiusCanvas > 24){
+                if (radiusCanvas > 24) {
                     radiusCanvas = 23;
-                }else{
+                } else {
                     radiusCanvas += 1;
                     score += 1;
                 }
-                
+
                 let index = indexRow * col + indexCol;
                 let name = this.nameFile + index.toString();
                 let nameNext = index < (row * col - 1) ? this.nameFile + (index + 1).toString() : null;
@@ -105,18 +106,23 @@ class Init {
     getScores() {
         return this.scores;
     }
-    getCountLock(){
+    getCountLock() {
         return this.countLock;
     }
     createItem(x, y, name = null, is = true) {
         if (this.isPause) {
-            return;
+            return false;
+        }
+        if (x > 350 && x < 350 + 42){
+            if (y > 10 && y < 10 + 44){
+                return true;
+            }
         }
         if (y > this.maxY && is) {
-            return;
+            return false;
         }
         if (this.lastFruit != null && is) {
-            return;
+            return false;
         }
         if (name == null) {
             name = this.nameNext;
@@ -127,8 +133,9 @@ class Init {
         item.activate(x, y);
         this.items.push(item);
         this.countLock = 0;
+        return false;
     }
-    updateTop(){
+    updateTop() {
         let max = parseInt(localStorage.getItem('top') ?? 0);
         if (this.getScores() * (this.level + 1) > max) {
             localStorage.setItem('top', this.getScores() * (this.level + 1));
@@ -145,8 +152,8 @@ class Init {
     }
     render() {
         this.context.drawImage(this.background, 0, 0, 400, 700);
-        new Text(20, 30, "Scores: " + (this.getScores() * (this.level + 1)))
-            .render(this.context, '20px Mono');
+        new Text(170, 20, "Scores: " + (this.getScores() * (this.level + 1)))
+            .render(this.context, '20px Mono', null, null, this.images['TextB'], 8, 10, 1.5);
         this.updateTop();
         this.renderFruitNext();
         this.context.beginPath();
@@ -157,16 +164,16 @@ class Init {
         this.items.forEach(item => {
             item.render(this.context);
         })
-        if (this.lastFruit != null) {
-            if (this.isPause) {
-                return;
+        if (!this.isPause) {
+            this.context.drawImage(this.images['setting'], 0, 0, 21, 22, 350, 10, 42, 44)
+            if (this.lastFruit != null) {
+                this.countLock += 1;
+                this.context.strokeStyle = ['red', 'green', 'blue', 'yellow'][Math.floor(Math.random() * 4)];
+                this.context.lineWidth = 1;
+                this.context.beginPath();
+                this.context.arc(40, 60, 20, 0, 2 * Math.PI);
+                this.context.stroke();
             }
-            this.countLock += 1;
-            this.context.strokeStyle = ['red', 'green', 'blue', 'yellow'][Math.floor(Math.random() * 4)];
-            this.context.lineWidth = 1;
-            this.context.beginPath();
-            this.context.arc(40, 60, 20, 0, 2 * Math.PI);
-            this.context.stroke();
         }
     }
     update() {
@@ -201,6 +208,7 @@ class Init {
     }
     loop(timestamp = 0) {
         this.deltaTime = timestamp - this.lastUpdateTime;
+        this.deltaTime = Math.min(this.deltaTime, 17);
         this.lastUpdateTime = timestamp;
         this.update();
     }

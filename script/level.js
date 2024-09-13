@@ -9,15 +9,15 @@ class Level {
     }
     init() {
         this.image = this.images['Logo'];
-        this.texts.push(new Text(200, 300, 'Purus Game'));
+        this.texts.push(new Text(200, 280, 'Togn Oek'));
         this.buttons.push(new Button(30, 350, "Level I", 0));
         this.buttons.push(new Button(30, 450, "Level II", 1));
     }
     render(context) {
         context.drawImage(this.image, 100, 50);
-        this.buttons.forEach(e => e.render(context, 1));
+        this.buttons.forEach(e => e.render(context, 1, this.images));
         this.texts.forEach(e =>
-            e.render(context, '50px Arial', 'center')
+            e.render(context, '50px Arial', 'center', null, this.images['TextB'])
         );
     }
     event(e) {
