@@ -3,7 +3,7 @@ import Text from "./text.js";
 import Button from './button.js';
 
 class Init {
-    constructor(context = null, images = null, data = null) {
+    constructor(context = null, images = null, data = null, audios = null) {
         this.context = context;
         this.fruits = {};
         this.items = [];
@@ -22,6 +22,7 @@ class Init {
         this.background = this.images['Background']
         this.countLock = 0;
         this.nameLevel = ['Fruits', 'Cute'];
+        this.sfxCollision = audios;
     }
     run(timestamp, level) {
         this.lastUpdateTime = timestamp;
@@ -113,8 +114,8 @@ class Init {
         if (this.isPause) {
             return false;
         }
-        if (x > 350 && x < 350 + 42){
-            if (y > 10 && y < 10 + 44){
+        if (x > 350 && x < 350 + 42) {
+            if (y > 10 && y < 10 + 44) {
                 return true;
             }
         }
@@ -125,8 +126,13 @@ class Init {
             return false;
         }
         if (name == null) {
+            this.sfxCollision['short'].volume = 0.5;
+            this.sfxCollision['short'].play();
             name = this.nameNext;
             this.updateNextName();
+        } else {
+            this.sfxCollision['collision'].volume = 0.5;
+            this.sfxCollision['collision'].play();
         }
         let item = this.fruits[name].copy();
         this.lastFruit = item;
@@ -198,6 +204,9 @@ class Init {
                         this.scores += this.items[index].score;
                         if (this.items[index].nameNext !== null) {
                             this.createItem(x / 2, y / 2, this.items[index].nameNext, false);
+                        } else {
+                            this.sfxCollision['oi_oi'].volume = 0.5;
+                            this.sfxCollision['oi_oi'].play();
                         }
                     }
                 }

@@ -6,12 +6,13 @@ import Level from "./level.js";
 import Over from "./over.js";
 
 class Game {
-    constructor(canvas, images, data) {
+    constructor(canvas, images, data, audios) {
         this.canvas = canvas;
         this.context = this.canvas.getContext("2d");
         this.images = images;
         this.data = data;
-        this.init = new Init(this.context, this.images, this.data);
+        this.audios = audios;
+        this.init = new Init(this.context, this.images, this.data, this.audios);
         this.menu = new Menu(this.images);
         this.menu.init();
         this.level = new Level(this.images);
@@ -151,6 +152,8 @@ class Game {
                 }
                 if (this.init.getCountLock() > this.maxLock) {
                     this.action = 'over';
+                    this.audios['game_over'].volume = 0.5;
+                    this.audios['game_over'].play();
                     this.init.handlePause();
                 }
                 break;
