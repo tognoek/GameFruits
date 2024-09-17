@@ -80,7 +80,7 @@ class Fruit {
         this.isAction = false;
     }
     getRadiusCanvas(){
-        return this.rCanvas;
+        return this.h;
     }
     render(context) {
         if (!this.isActivate()) {
@@ -95,7 +95,7 @@ class Fruit {
         context.drawImage(this.images, this.sx, this.sy,
             this.w * 2, height,
             this.x - this.rCanvas, this.y - this.rCanvas,
-            this.rCanvas * 2, height);
+            this.rCanvas * 2, height * this.rCanvas / this.h);
     }
     copy() {
         return new Fruit(this.images, this.name,
