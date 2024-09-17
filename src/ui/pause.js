@@ -1,15 +1,16 @@
-import Button from "./button.js";
-import Text from "./text.js";
-class Over{
+import Button from "./components/button.js";
+import Text from "./components/text.js";
+class Pause{
     constructor(images){
         this.images = images;
         this.buttons = [];
         this.texts = [];
     }
     init(){
-        this.texts.push(new Text(200, 250, 'Game over!'));
-        this.buttons.push(new Button(30, 320, "Reset", -1));
-        this.buttons.push(new Button(30, 430, "Exit", 1));
+        this.texts.push(new Text(200, 150, 'Togn Oek'));
+        this.buttons.push(new Button(30, 250, "Continue", 0));
+        this.buttons.push(new Button(30, 350, "Reset", -1));
+        this.buttons.push(new Button(30, 450, "Exit", 1));
     }
     render(context){
         context.fillStyle = 'rgba(128, 128, 128, 0.5)';
@@ -33,4 +34,4 @@ class Over{
 
 }
 
-export default Over;
+export default Pause;

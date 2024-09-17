@@ -79,42 +79,23 @@ class Fruit {
     die() {
         this.isAction = false;
     }
-    collision(object) {
-        if (!this.isActivate()) {
-            return;
-        }
-        let delatX = object.x - this.x;
-        let delatY = object.y - this.y;
-        let distance = Math.sqrt(delatX * delatX + delatY * delatY);
-        if (distance < this.radius + object.radius) {
-            this.vCollisionNorm = { x: delatX / distance, y: delatY / distance };
-            object.vCollisionNorm = { x: delatX / distance, y: delatY / distance };
-            let vRelativeVelocity = {
-                x: this.vx - object.vx,
-                y: this.vy - object.vy
-            }
-            let speed = this.vCollisionNorm.x * vRelativeVelocity.x + this.vCollisionNorm.y * vRelativeVelocity.y;
-            let implues = 2 * speed / (this.mass + object.mass);
-            this.moving(speed, object, implues, -1);
-            object.moving(speed, this, implues, 1);
-            return this.name === object.name;
-        }
-        return false;
+    getRadiusCanvas(){
+        return this.rCanvas;
     }
     render(context) {
         if (!this.isActivate()) {
             return;
         }
-        // context.imageSmoothingEnabled = true;
-        // context.imageSmoothingQuality = 'low';
         context.drawImage(this.images, this.sx, this.sy,
             this.w * 2, this.h * 2,
             this.x - this.rCanvas, this.y - this.rCanvas,
             this.rCanvas * 2, this.rCanvas * 2);
-        // context.beginPath();
-        // context.arc(this.x , this.y , this.radius, 0, 2 * Math.PI);
-        // context.stroke();
-        // context.closePath();
+    }
+    renderConver(context, height){
+        context.drawImage(this.images, this.sx, this.sy,
+            this.w * 2, height,
+            this.x - this.rCanvas, this.y - this.rCanvas,
+            this.rCanvas * 2, height);
     }
     copy() {
         return new Fruit(this.images, this.name,

@@ -1,6 +1,8 @@
-import Fruit from './fruit.js';
-import Text from "./text.js";
-import Button from './button.js';
+import Text from "./ui/components/text.js";
+import { handleCollision } from './core/handleCollision.js';
+import { handleCreateData } from './gameplay/spawning/handleCreateData.js';
+import { handlePlayMusic } from './core/handlePlayMusic.js';
+import { handleTween } from "./core/tween/handleTween.js";
 
 class Init {
     constructor(context = null, images = null, data = null, audios = null) {
@@ -22,7 +24,8 @@ class Init {
         this.background = this.images['Background']
         this.countLock = 0;
         this.nameLevel = ['Fruits', 'Cute'];
-        this.sfxCollision = audios;
+        this.sfx = audios;
+        this.yBegin = null;
     }
     run(timestamp, level) {
         this.lastUpdateTime = timestamp;
@@ -30,12 +33,12 @@ class Init {
         this.name = [];
         this.countLock = 0;
         this.nameFile = this.nameLevel[this.level];
-        this.createFruit(() => {
-            // call back in fatch
-            this.isActivate = true;
-            this.isCreate = true;
-            this.updateNextName();
-        });
+        const {nameResult, dataResult} = handleCreateData(this.data, this.nameFile, this.images);
+        this.name = nameResult;
+        this.fruits = dataResult;
+        this.isActivate = true;
+        this.isCreate = true;
+        this.updateNextName();
         if (this.isCreate) {
             this.isPause = false;
             this.isActivate = true;
@@ -72,35 +75,6 @@ class Init {
         this.isPause = false;
         this.countLock = 0;
     }
-    createFruit(callBack) {
-        let radiusCanvas = 16;
-        let score = 1;
-        let row = this.data[this.nameFile].row;
-        let col = this.data[this.nameFile].col;
-        let w = this.data[this.nameFile].w;
-        let h = this.data[this.nameFile].h;
-        for (let indexRow = 0; indexRow < row; indexRow++) {
-            for (let indexCol = 0; indexCol < col; indexCol++) {
-                let x = indexCol * h;
-                let y = indexRow * w;
-                if (radiusCanvas > 24) {
-                    radiusCanvas = 23;
-                } else {
-                    radiusCanvas += 1;
-                    score += 1;
-                }
-
-                let index = indexRow * col + indexCol;
-                let name = this.nameFile + index.toString();
-                let nameNext = index < (row * col - 1) ? this.nameFile + (index + 1).toString() : null;
-                this.name.push(name);
-                this.fruits[name] = new Fruit(this.images[this.nameFile], name, x, y,
-                    w / 2, h / 2, radiusCanvas,
-                    1, 0.6, nameNext, score);
-            }
-        }
-        callBack();
-    }
     updateNextName() {
         this.nameNext = this.randomName();
     }
@@ -126,17 +100,16 @@ class Init {
             return false;
         }
         if (name == null) {
-            this.sfxCollision['short'].volume = 0.5;
-            this.sfxCollision['short'].play();
+            handlePlayMusic(this.sfx, 'short', 0.5, false);
             name = this.nameNext;
             this.updateNextName();
         } else {
-            this.sfxCollision['collision'].volume = 0.5;
-            this.sfxCollision['collision'].play();
+            handlePlayMusic(this.sfx, 'collision', 0.5, false);
         }
         let item = this.fruits[name].copy();
         this.lastFruit = item;
         item.activate(x, y);
+        this.yBegin = y;
         this.items.push(item);
         this.countLock = 0;
         return false;
@@ -152,8 +125,9 @@ class Init {
         let fruit = this.fruits[this.nameNext];
         if (fruit) {
             let fruitCopy = fruit.copyDefault();
+            let height = handleTween(this.yBegin, this.lastFruit?.y ? this.lastFruit.y : 1000, this.maxY, fruitCopy.getRadiusCanvas() * 2);
             fruitCopy.activate(40, 60);
-            fruitCopy.render(this.context);
+            fruitCopy.renderConver(this.context, height);
         }
     }
     render() {
@@ -172,14 +146,6 @@ class Init {
         })
         if (!this.isPause) {
             this.context.drawImage(this.images['setting'], 0, 0, 21, 22, 350, 10, 42, 44)
-            if (this.lastFruit != null) {
-                this.countLock += 1;
-                this.context.strokeStyle = ['red', 'green', 'blue', 'yellow'][Math.floor(Math.random() * 4)];
-                this.context.lineWidth = 1;
-                this.context.beginPath();
-                this.context.arc(40, 60, 20, 0, 2 * Math.PI);
-                this.context.stroke();
-            }
         }
     }
     update() {
@@ -196,7 +162,7 @@ class Init {
             if (this.items[index].isActivate()) {
                 for (let indexOther = index + 1; indexOther < this.items.length; indexOther++) {
                     if (this.items[indexOther].isActivate() &&
-                        this.items[index].collision(this.items[indexOther])) {
+                        handleCollision(this.items[index], this.items[indexOther])) {
                         this.items[index].die();
                         this.items[indexOther].die();
                         let x = this.items[index].x + this.items[indexOther].x;
@@ -205,8 +171,7 @@ class Init {
                         if (this.items[index].nameNext !== null) {
                             this.createItem(x / 2, y / 2, this.items[index].nameNext, false);
                         } else {
-                            this.sfxCollision['oi_oi'].volume = 0.5;
-                            this.sfxCollision['oi_oi'].play();
+                            handlePlayMusic(this.sfx, 'oi_oi', 0.5, false);
                         }
                     }
                 }

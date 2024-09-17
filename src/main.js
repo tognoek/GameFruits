@@ -1,9 +1,9 @@
-import Canvas from "./canvas.js";
-import Init from "./init.js";
-import Menu from "./menu.js";
-import Pause from "./pause.js";
-import Level from "./level.js";
-import Over from "./over.js";
+import Canvas from "./grahpics/canvas.js";
+import Init from "./game.js";
+import Menu from "./ui/menu.js";
+import Pause from "./ui/pause.js";
+import Level from "./ui/level.js";
+import Over from "./ui/over.js";
 
 class Game {
     constructor(canvas, images, data, audios) {

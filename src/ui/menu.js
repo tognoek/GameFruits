@@ -1,5 +1,5 @@
-import Button from "./button.js";
-import Text from "./text.js";
+import Button from "./components/button.js";
+import Text from "./components/text.js";
 class Menu {
     constructor(images) {
         this.images = images;

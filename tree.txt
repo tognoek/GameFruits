@@ -1,0 +1,54 @@
+.
+├── README.md
+├── assets
+│   ├── Images
+│   │   ├── Chirstmas.png
+│   │   ├── Cute.png
+│   │   ├── Fruits.png
+│   │   ├── background.jpeg
+│   │   ├── background.jpg
+│   │   ├── background.png
+│   │   ├── logo.svg
+│   │   ├── setting.png
+│   │   ├── text_black.png
+│   │   └── text_white.png
+│   └── Music
+│       ├── collision.wav
+│       ├── cute.mp3
+│       ├── game_over_robot.mp3
+│       ├── oi_oi.wav
+│       └── short.wav
+├── data
+│   └── fruits.json
+├── index.html
+├── script.js
+├── src
+│   ├── core
+│   │   ├── handleCollision.js
+│   │   ├── handleFall.js
+│   │   ├── handlePlayMusic.js
+│   │   └── tween
+│   │       └── handleTween.js
+│   ├── game.js
+│   ├── gameplay
+│   │   ├── object
+│   │   │   └── fruit.js
+│   │   └── spawning
+│   │       └── handleCreateData.js
+│   ├── grahpics
+│   │   └── canvas.js
+│   ├── main.js
+│   ├── ui
+│   │   ├── components
+│   │   │   ├── button.js
+│   │   │   └── text.js
+│   │   ├── level.js
+│   │   ├── menu.js
+│   │   ├── over.js
+│   │   └── pause.js
+│   └── utils
+│       └── image.js
+├── style.css
+└── tree.txt
+
+15 directories, 37 files
