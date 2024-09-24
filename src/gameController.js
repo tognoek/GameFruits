@@ -126,7 +126,7 @@ class Init {
         if (fruit) {
             let fruitCopy = fruit.copyDefault();
             let height = handleTween(this.yBegin, this.lastFruit?.y ? this.lastFruit.y : 1000, this.maxY, fruitCopy.getRadiusCanvas() * 2);
-            this.countLock += 1;
+            this.countLock += height < fruitCopy.getRadiusCanvas() * 2 ? 1 : 0;
             fruitCopy.activate(40, 60);
             fruitCopy.renderConver(this.context, height);
         }
