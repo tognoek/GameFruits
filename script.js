@@ -1,5 +1,5 @@
 // Import class
-import Game from './src/main.js';
+import Game from './src/index.js';
 import Images from './src/utils/image.js';
 
 const canvas = document.getElementById('canvas');

@@ -1,5 +1,5 @@
 import Canvas from "./grahpics/canvas.js";
-import Init from "./game.js";
+import Init from "./gameController.js";
 import Menu from "./ui/menu.js";
 import Pause from "./ui/pause.js";
 import Level from "./ui/level.js";
